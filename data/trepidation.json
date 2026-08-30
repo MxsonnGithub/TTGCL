@@ -1,18 +1,27 @@
 {
-    "id": "147073016",
-    "name": "Trepidation",
-    "author": "[TTG] YMG",
-    "creators": ["[TTG] YMG"],
-    "verifier": "[TTG] YMG",
-    "verification": "https://youtu.be/3sMAOqK7w7M?t=495",
-    "percentToQualify": 67,
-    "password": "Free to Copy",
-    "records": [
-    { 
-            "user": "DrChopper",
-            "link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
-            "percent": 100,
-            "hz": 240
-      }
-    ]
+	"id": "147073016",
+	"name": "Trepidation",
+	"author": "[TTG] YMG",
+	"creators": [
+		"[TTG] YMG"
+	],
+	"verifier": "[TTG] YMG",
+	"verification": "https://youtu.be/3sMAOqK7w7M?t=495",
+	"percentToQualify": 67,
+	"password": "Free to Copy",
+	"records": [
+		{
+			"user": "DrChopper",
+			"link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
+			"percent": 100,
+			"hz": 240
+		},
+		{
+			"user": "[TTG] hpoison3",
+			"link": "https://youtu.be/YGYC4qHbx_o",
+			"percent": 100,
+			"hz": 480,
+			"enjoyment": 6
+		}
+	]
 }
