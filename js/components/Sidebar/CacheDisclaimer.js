@@ -2,7 +2,7 @@ export default {
     template: `
         <div class="right-text">
             <p>
-                For your convenience, the Layout List caches the data for the list in your browser.
+                For your convenience,  The TTG Challenge list caches the data for the list in your browser.
             </p>
             <p>
                 By using the site, you agree to the storage of this data in your browser.
