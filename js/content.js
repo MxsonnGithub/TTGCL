@@ -71,6 +71,16 @@ export async function fetchList() {
                     }
                     let level = await levelResult.json(); // no longer a constant so we can wrap in the path
 
+                    if (typeof level !== 'object' || level === null) {
+                        level = {};
+                    }
+
+                    if (typeof level.difficulty !== 'number' || Number.isNaN(level.difficulty)) {
+                        level.difficulty = 5;
+                    }
+                    if (typeof level.percentToQualify !== 'number' || Number.isNaN(level.percentToQualify)) {
+                        level.percentToQualify = 100;
+                    }
                     level["path"] = path;
 
                     try {
