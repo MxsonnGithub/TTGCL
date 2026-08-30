@@ -28,6 +28,14 @@ export const scale = 1; // Amount of decimals the site will globally round to an
 // Score function (levels and records):
 // -------------------------------------
 export function score(rank, difficulty, percent, minPercent, list) {
+    if (!Number.isFinite(rank) || !Number.isFinite(difficulty) || !Number.isFinite(percent)) {
+        return 0;
+    }
+
+    if (typeof minPercent !== 'number' || Number.isNaN(minPercent) || !Number.isFinite(minPercent)) {
+        minPercent = 100;
+    }
+
     // There are two formulas used to calculate a level/record's score: linear and exponential.
     //      - Linear: Used for the levels in the beginner through mythical tiers, where each
     //        level increments an equal value from the minimum point value in the tier to

@@ -10,6 +10,13 @@ const dir = '/data';
  */
 const benchmarker = '_';
 
+function normalizeUserName(value) {
+    if (typeof value !== 'string') return null;
+    const cleaned = value.trim().replace(/\s+/g, ' ');
+    if (!cleaned || cleaned === '-' || cleaned === '—') return null;
+    return cleaned;
+}
+
 async function safeJsonFetch(url, fallback = []) {
     try {
         const response = await fetch(url);
@@ -70,7 +77,10 @@ export async function fetchList() {
                         if (level.records) {
                             // for each record, look up "user" in the flag map and add flag property to their record
                             level.records.forEach((record) => {
-                                record.flag = flags[record.user];
+                                const user = normalizeUserName(record.user);
+                                if (!user) return;
+                                record.user = user;
+                                record.flag = flags[user];
                             });
 
                         }
@@ -167,17 +177,20 @@ export async function fetchLeaderboard(list) {
         }
 
         // Creators
-        level.creators.forEach((person) => {
+        (level.creators || []).forEach((person) => {
+            const sanitizedPerson = normalizeUserName(person);
+            if (!sanitizedPerson) return;
+
             const creator = Object.keys(scoreMap).find(
-                (u) => u.toLowerCase() === person.toLowerCase(),
-            ) || person;
+                (u) => u.toLowerCase() === sanitizedPerson.toLowerCase(),
+            ) || sanitizedPerson;
             scoreMap[creator] ??= {
                 created: [],
                 verified: [],
                 completed: [],
                 progressed: [],
                 userPacks: [],
-                flag: flags[person]
+                flag: flags[sanitizedPerson]
             };
             const { created } = scoreMap[creator];
             created.push({
@@ -188,16 +201,21 @@ export async function fetchLeaderboard(list) {
         });
         
         // Verification
+        const sanitizedVerifier = normalizeUserName(level.verifier);
+        if (!sanitizedVerifier) {
+            return;
+        }
+
         const verifier = Object.keys(scoreMap).find(
-            (u) => u.toLowerCase() === level.verifier.toLowerCase(),
-        ) || level.verifier;
+            (u) => u.toLowerCase() === sanitizedVerifier.toLowerCase(),
+        ) || sanitizedVerifier;
         scoreMap[verifier] ??= {
             created: [],
             verified: [],
             completed: [],
             progressed: [],
             userPacks: [],
-            flag: flags[level.verifier]
+            flag: flags[sanitizedVerifier]
         };
         completedPacksMap[verifier] ??= new Set();
 
@@ -267,9 +285,12 @@ export async function fetchLeaderboard(list) {
 
         // Records
         level.records.forEach((record) => {
+            const safeUser = normalizeUserName(record.user);
+            if (!safeUser) return;
+
             const user = Object.keys(scoreMap).find(
-                (u) => u.toLowerCase() === record.user.toLowerCase(),
-            ) || record.user;
+                (u) => u.toLowerCase() === safeUser.toLowerCase(),
+            ) || safeUser;
             scoreMap[user] ??= {
                 created: [],
                 verified: [],
