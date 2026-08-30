@@ -1,0 +1,24 @@
+{
+    "id": "138799483",
+    "name": "bleh",
+    "author": "Fracty1324",
+    "creators": ["Fracty1324"],
+    "verifier": "Fracty1324",
+    "verification": "https://youtu.be/PpzRZBT5cc8",
+    "percentToQualify": 67,
+    "password": "Free to Copy",
+    "records": [
+        {
+            "user": "[TTG] hpoison3",
+            "link": "https://www.youtube.com/watch?v=8DoEkX6EHn0",
+            "percent": 100,
+            "hz": 240
+      },
+                        {
+            "user": "[TTG] NotZockz",
+            "link": "https://youtu.be/3QGezjgmVUI",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}

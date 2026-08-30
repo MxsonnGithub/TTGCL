@@ -1,0 +1,48 @@
+{
+    "id": "139167804",
+    "name": "Tootspam",
+    "author": "patrek_m",
+    "creators": ["patrek_m"],
+    "verifier": "patrek_m",
+    "verification": "https://www.youtube.com/watch?v=sV0wkwSx7RA",
+    "percentToQualify": 43,
+    "password": "Free to Copy",
+    "records": [
+        {
+            "user": "3spyrt_3",
+            "link": "https://www.youtube.com/watch?v=F4VzZ5WKXXU",
+            "percent": 100,
+            "hz": 240
+          },
+        {
+            "user": "[TTG] hpoison3",
+            "link": "https://youtu.be/IxsglGWXZKA?si=1tgMn2uiOczkPsmS",
+            "percent": 100,
+            "hz": 240
+        },
+        {
+            "user": "[TTG] NotZockz",
+            "link": "https://youtu.be/tBzZGLr0U_Q",
+            "percent": 100,
+            "hz": 240
+        },
+                        {
+            "user": "[TTG] mxsonngeo",
+            "link": "https://youtu.be/Sqk2bwcV51s",
+            "percent": 100,
+            "hz": 144
+          },
+                                                  {
+            "user": "koykoypro",
+            "link": "https://www.youtube.com/watch?v=OLKQg8A8Mwo",
+            "percent": 100,
+            "hz": 240
+          },
+           {
+            "user": "[TTG] OppieGD",
+            "link": "https://youtu.be/PyAfa1u8j-o",
+            "percent": 100,
+            "hz": 240
+          }
+    ]
+}

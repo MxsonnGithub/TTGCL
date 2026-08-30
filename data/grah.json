@@ -1,0 +1,24 @@
+{
+    "id": "141488610",
+    "name": "grah",
+    "author": "mxsonngeo",
+    "creators": ["mxsonngeo"],
+    "verifier": "[TTG] hpoison3",
+    "verification": "https://youtu.be/BP0sDvca_KU",
+    "percentToQualify": 85,
+    "password": "none",
+    "records": [
+                      {
+            "user": "[TTG] NotZockz",
+            "link": "https://youtu.be/LCAuA0GClEU",
+            "percent": 100,
+            "hz": 240
+        },
+                     {
+            "user": "[TTG] mxsonngeo",
+            "link": "https://youtu.be/-pLkw0lYnf8",
+            "percent": 100,
+            "hz": 120
+             }
+    ]
+}

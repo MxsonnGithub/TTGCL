@@ -1,0 +1,18 @@
+{
+    "id": "142160277",
+    "name": "hpp give me your wood",
+    "author": "koyar2015123",
+    "creators": ["koyar2015123"],
+    "verifier": "[TTG] hpoison3",
+    "verification": "https://youtu.be/tQvvoWO7owA",
+    "percentToQualify": 30,
+    "password": "none",
+    "records": [ 
+        {
+            "user": "DrChopper",
+            "link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
+            "percent": 100,
+            "hz": 240
+      }
+    ]
+}

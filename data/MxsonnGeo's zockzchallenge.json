@@ -1,0 +1,49 @@
+{
+    "id": "138575913",
+    "name": "MxsonnGeo's NZ-Challenge",
+    "author": "mxsonngeo",
+    "creators": ["mxsonngeo"],
+    "verifier": "[TTG] mxsonngeo",
+    "verification": "https://www.youtube.com/watch?v=zKzDrbBV2k8",
+    "percentToQualify": 54,
+    "password": "Free to Copy",
+    "records": [
+          {
+            "user": "patrek_m",
+            "link": "https://www.youtube.com/watch?v=1jHMkmCQ3C0",
+            "percent": 100,
+            "hz": 60
+          },
+                    {
+            "user": "3spyrt_3",
+            "link": "https://www.youtube.com/watch?v=6vtZNssoKBM",
+            "percent": 100,
+            "hz": 240
+          },
+          {
+            "user": "[TTG] hpoison3",
+            "link": "https://www.youtube.com/watch?v=NgySZOhMym4",
+            "percent": 100,
+            "hz": 240
+          },
+                            {
+            "user": "[TTG] NotZockz",
+            "link": "https://youtu.be/nGH7XvWDfVA",
+            "percent": 100,
+            "hz": 240
+        },
+                                                {
+            "user": "koykoypro",
+            "link": "https://www.youtube.com/watch?v=7SUbTueki3E",
+            "percent": 100,
+            "hz": 240
+          },
+                     {
+            "user": "[TTG] OppieGD",
+            "link": "https://youtu.be/SyWU1mE816o",
+            "percent": 100,
+            "hz": 240
+          }
+
+    ]
+}

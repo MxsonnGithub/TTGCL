@@ -1,0 +1,30 @@
+{
+    "id": "138867750",
+    "name": "bleh but harder",
+    "author": "Fracty1324",
+    "creators": ["Fracty1324"],
+    "verifier": "Fracty1324",
+    "verification": "https://youtu.be/jjPqKI3A9D0",
+    "percentToQualify": 67,
+    "password": "Free to Copy",
+    "records": [
+        {
+            "user": "[TTG] mxsonngeo",
+            "link": "https://youtu.be/_pvvAYyoULU",
+            "percent": 100,
+            "hz": 120
+      },
+     {
+            "user": "[TTG] hpoison3",
+            "link": "https://www.youtube.com/watch?v=iUJ7-U1sZAU",
+            "percent": 100,
+            "hz": 240
+      },
+                  {
+            "user": "[TTG] NotZockz",
+            "link": "https://youtu.be/ngEAo4-OJfk",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "id": "142115815",
+    "name": "zockz 618 part one",
+    "author": "koyar2015123",
+    "creators": ["koyar2015123"],
+    "verifier": "[TTG] hpoison3",
+    "verification": "https://youtu.be/xJ39tRyKYUI",
+    "percentToQualify": 20,
+    "password": "none",
+    "records": [
+                      {
+            "user": "[TTG] NotZockz",
+            "link": "https://www.twitch.tv/notzockz/clip/DependableBenevolentMageRlyTho-Ycytg7Lu2TcBBk1n",
+            "percent": 100,
+            "hz": 240
+        },
+                             {
+            "user": "[TTG] OppieGD",
+            "link": "https://youtu.be/JlDQ41GIwXI",
+            "percent": 100,
+            "hz": 240
+          },
+                           {
+            "user": "Fracty1324",
+            "link": "https://medal.tv/games/screen-capture/clips/n4OsLxiwznYZSwf1T?invite=cr-MSw5V0IsMzU3MTI2MzMz",
+            "percent": 100,
+            "hz": 240
+          },
+                                  {
+            "user": "[TTG] mxsonngeo",
+            "link": "https://youtu.be/1zaH42Qbp58",
+            "percent": 100,
+            "hz": 144
+          },
+                                 {
+            "user": "[TTG] ymg",
+            "link": "https://www.youtube.com/watch?v=g4idr-QzBQg",
+            "percent": 100,
+            "hz": 120
+            },
+         {
+            "user": "DrChopper",
+            "link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
+            "percent": 100,
+            "hz": 240
+      }
+    ]
+}

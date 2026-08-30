@@ -1,0 +1,25 @@
+{
+    "id": "138512436",
+    "name": "BIG BIG BIG",
+    "author": "hpoison3",
+    "creators": ["hpoison3"],
+    "verifier": "[TTG] hpoison3",
+    "verification": "https://youtu.be/sq0GvQzcAhk",
+    "percentToQualify": 55,
+    "password": "Free to Copy",
+    "records": [
+                                {
+            "user": "[TTG] NotZockz",
+            "link": "https://www.youtube.com/watch?v=qFibNCgquIk",
+            "percent": 100,
+            "hz": 240
+        },
+                              {
+            "user": "DrChopper",
+            "link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
+            "percent": 100,
+            "hz": 240
+      
+          }
+    ]
+}

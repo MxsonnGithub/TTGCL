@@ -1,0 +1,25 @@
+{
+    "id": "141551850",
+    "name": "Zockz challenge accu",
+    "author": "mxsonngeo",
+    "creators": ["mxsonngeo"],
+    "verifier": "[TTG] NotZockz",
+    "verification": "https://youtu.be/ylftC3MS7zQ",
+    "percentToQualify": 85,
+    "password": "none",
+    "records": [
+                {
+            "user": "[TTG] hpoison3",
+            "link": "https://www.youtube.com/watch?v=UbSvbqbPYlk",
+            "percent": 100,
+            "hz": 240
+        },
+                              {
+            "user": "3spyrt_3",
+            "link": "https://www.youtube.com/watch?v=L4D3tnPgq1E",
+            "percent": 100,
+            "hz": 240
+          }
+        
+    ]
+}

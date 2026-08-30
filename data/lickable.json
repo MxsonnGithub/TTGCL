@@ -1,0 +1,25 @@
+{
+    "id": "141552150",
+    "name": "lickabke",
+    "author": "hpoison3",
+    "creators": ["hpoison3"],
+    "verifier": "[TTG] hpoison3",
+    "verification": "https://youtu.be/UAGaWlwOLXY",
+    "percentToQualify": 85,
+    "password": "none",
+    "records": [
+                                    {
+            "user": "[TTG] NotZockz",
+            "link": "https://www.twitch.tv/notzockz/clip/AwkwardSparklingChamoisTheTarFu--iux5TX7YhNf5QbB",
+            "percent": 100,
+            "hz": 240
+        },
+                                     {
+            "user": "Fracty1324",
+            "link": "https://medal.tv/games/screen-capture/clips/n4Oy3FAV8dKHjgcKA?invite=cr-MSxZb0wsMzU3MTI2MzMz",
+            "percent": 100,
+            "hz": 240
+          }
+        
+    ]
+}
