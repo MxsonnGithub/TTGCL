@@ -10,23 +10,38 @@ const dir = '/data';
  */
 const benchmarker = '_';
 
+async function safeJsonFetch(url, fallback = []) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.warn(`Fetch failed for ${url}: ${response.status}`);
+            return fallback;
+        }
 
+        const text = await response.text();
+        if (!text || !text.trim()) {
+            console.warn(`Empty JSON response for ${url}`);
+            return fallback;
+        }
+
+        return JSON.parse(text);
+    } catch (e) {
+        console.error(`failed to fetch JSON from ${url}: ${e}`);
+        return fallback;
+    }
+}
 
 export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
-    const packResult = await fetch(`${dir}/_packs.json`);
-    const flagResult = await fetch(`${dir}/_flags.json`);
     try {
-        const list = await listResult.json();
-        const flags = await flagResult.json();
-        let packsMap = []
-        try {
-            packsMap = await packResult.json();
-        } catch (e) {
-            // pack error object [0] will always be "err"
-            // [1] is the error message
-            // (optional) [2] is the level name being processed while the error is thrown
-            packsMap = ["err", e] 
+        const [list, flags, packsMap] = await Promise.all([
+            safeJsonFetch(`${dir}/_list.json`, null),
+            safeJsonFetch(`${dir}/_flags.json`, {}),
+            safeJsonFetch(`${dir}/_packs.json`, []),
+        ]);
+
+        if (!Array.isArray(list)) {
+            console.error('Failed to load list.');
+            return null;
         }
 
         // Create a lookup dictionary for ranks
@@ -44,6 +59,9 @@ export async function fetchList() {
                     const levelResult = await fetch(
                         `${dir}/${path.startsWith(benchmarker) ? path.substring(1) : path}.json`,
                     );
+                    if (!levelResult.ok) {
+                        throw new Error(`HTTP ${levelResult.status} for ${path}`);
+                    }
                     let level = await levelResult.json(); // no longer a constant so we can wrap in the path
 
                     level["path"] = path;
@@ -389,14 +407,11 @@ export async function fetchLeaderboard(list) {
 
 export async function fetchPacks(list) {
     try {
-        const packResult = await fetch(`${dir}/_packs.json`);
-        let packs = []
-        try {
-            packs = await packResult.json();
-        } catch (e) {
-            console.error(`failed to process packs: ${e}`)
-            packs = ["err", e]
+        if (!Array.isArray(list)) {
+            return [];
         }
+
+        const packs = await safeJsonFetch(`${dir}/_packs.json`, []);
         let users = [];
 
         list.forEach((object) => {
