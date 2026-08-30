@@ -6,10 +6,36 @@ console.clear();
 // used for cache versioning, the idea is we can use this to refresh
 // the cached data if we push changes that would conflict with the old data, 
 // to prevent showing a billion error messages.
-export const version = 3.2
+export const version = 3.3
 const debug = false;
 
 export let store;
+
+function safeDecompress(key) {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+
+    try {
+        return decompressData(raw);
+    } catch (error) {
+        console.warn(`Corrupt cache detected for ${key}, clearing it...`, error);
+        localStorage.removeItem(key);
+        return null;
+    }
+}
+
+function safeCacheSet(key, value) {
+    if (value === null || value === undefined) {
+        localStorage.removeItem(key);
+        return;
+    }
+
+    try {
+        localStorage.setItem(key, compressData(value));
+    } catch (error) {
+        console.warn(`Failed to cache ${key}:`, error);
+    }
+}
 
 // Compresses data passed to the function using Gzip
 export function compressData(data) {
@@ -37,17 +63,25 @@ if (!debug) {
     // Compare cache version
     if (localStorage.getItem("version") !== version.toString()) {
         console.warn("Cache is out of date, reloading ALL data!");
-        let cookieList = await fetchList();
-        localStorage.setItem("listdata", compressData(cookieList));
-    
-        let cookieLeaderboard = await fetchLeaderboard(cookieList);
-        localStorage.setItem("leaderboarddata", compressData(cookieLeaderboard));
-    
-        let cookiePacks = await fetchPacks(cookieList);
-        localStorage.setItem("packsdata", compressData(cookiePacks));
+        const cookieList = await fetchList();
+        if (Array.isArray(cookieList)) {
+            safeCacheSet("listdata", cookieList);
+        }
 
-        let cookieStaff = await fetchStaff();
-        localStorage.setItem("staffdata", compressData(cookieStaff));
+        const cookieLeaderboard = Array.isArray(cookieList) ? await fetchLeaderboard(cookieList) : null;
+        if (Array.isArray(cookieLeaderboard)) {
+            safeCacheSet("leaderboarddata", cookieLeaderboard);
+        }
+
+        const cookiePacks = Array.isArray(cookieList) ? await fetchPacks(cookieList) : null;
+        if (Array.isArray(cookiePacks)) {
+            safeCacheSet("packsdata", cookiePacks);
+        }
+
+        const cookieStaff = await fetchStaff();
+        if (Array.isArray(cookieStaff)) {
+            safeCacheSet("staffdata", cookieStaff);
+        }
 
         localStorage.setItem('version', version.toString())
     }
@@ -55,39 +89,47 @@ if (!debug) {
     // Compress and store staff locally if it doesn't exist
     if (!localStorage.getItem("staffdata")) {
         console.warn("Staff not found in cache, refreshing...");
-        let cookieStaff = await fetchStaff();
-        localStorage.setItem("staffdata", compressData(cookieStaff));
+        const cookieStaff = await fetchStaff();
+        if (Array.isArray(cookieStaff)) {
+            safeCacheSet("staffdata", cookieStaff);
+        }
     }
 
     // Compress and store list locally if it doesn't exist
     if (!localStorage.getItem("listdata")) {
         console.warn("List not found in cache, refreshing...");
-        let cookieList = await fetchList();
-        localStorage.setItem("listdata", compressData(cookieList));
+        const cookieList = await fetchList();
+        if (Array.isArray(cookieList)) {
+            safeCacheSet("listdata", cookieList);
+        }
     }
 
     // Compress and store leaderboard locally if it doesn't exist
     if (!localStorage.getItem("leaderboarddata")) {
         console.warn("Leaderboard not found in cache, refreshing...");
-        let cookieList = localStorage.getItem("listdata")
-            ? decompressData(localStorage.getItem("listdata"))
-            : await fetchList();
-        let cookieLeaderboard = await fetchLeaderboard(cookieList);
+        const cookieList = safeDecompress("listdata") || await fetchList();
+        const cookieLeaderboard = Array.isArray(cookieList) ? await fetchLeaderboard(cookieList) : null;
 
-        localStorage.setItem("listdata", compressData(cookieList));
-        localStorage.setItem("leaderboarddata", compressData(cookieLeaderboard));
+        if (Array.isArray(cookieList)) {
+            safeCacheSet("listdata", cookieList);
+        }
+        if (Array.isArray(cookieLeaderboard)) {
+            safeCacheSet("leaderboarddata", cookieLeaderboard);
+        }
     }
 
     // Compress and store packs locally if it doesn't exist
     if (!localStorage.getItem("packsdata")) {
         console.warn("Packs not found in cache, refreshing...");
-        let cookieList = localStorage.getItem("listdata")
-            ? decompressData(localStorage.getItem("listdata"))
-            : await fetchList();
-        let cookiePacks = await fetchPacks(cookieList);
+        const cookieList = safeDecompress("listdata") || await fetchList();
+        const cookiePacks = Array.isArray(cookieList) ? await fetchPacks(cookieList) : null;
 
-        localStorage.setItem("listdata", compressData(cookieList));
-        localStorage.setItem("packsdata", compressData(cookiePacks));
+        if (Array.isArray(cookieList)) {
+            safeCacheSet("listdata", cookieList);
+        }
+        if (Array.isArray(cookiePacks)) {
+            safeCacheSet("packsdata", cookiePacks);
+        }
     }
 
     // Decompress data when loading it from storage
@@ -99,18 +141,10 @@ if (!debug) {
             localStorage.setItem("dark", JSON.stringify(this.dark));
         },
 
-        list: localStorage.getItem("listdata")
-            ? decompressData(localStorage.getItem("listdata"))
-            : null,
-        staff: localStorage.getItem("staffdata")
-            ? decompressData(localStorage.getItem("staffdata"))
-            : null,
-        leaderboard: localStorage.getItem("leaderboarddata")
-            ? decompressData(localStorage.getItem("leaderboarddata"))
-            : null,
-        packs: localStorage.getItem("packsdata")
-            ? decompressData(localStorage.getItem("packsdata"))
-            : null,
+        list: safeDecompress("listdata"),
+        staff: safeDecompress("staffdata"),
+        leaderboard: safeDecompress("leaderboarddata"),
+        packs: safeDecompress("packsdata"),
         errors: [],
         version
     });
@@ -163,36 +197,36 @@ let app = Vue.createApp({
         store.loaded = true;
         // Update list if it's different than what's stored locally
         const updatedList = await fetchList();
-        if (JSON.stringify(updatedList) !== JSON.stringify(store.list)) {
+        if (Array.isArray(updatedList) && JSON.stringify(updatedList) !== JSON.stringify(store.list)) {
             console.info("Found new data in list! Overwriting...");
-            localStorage.setItem("listdata", compressData(updatedList));
+            safeCacheSet("listdata", updatedList);
         }
         // Update staff if it's different than what's stored locally
         const updatedStaff = await fetchStaff();
-        if (JSON.stringify(updatedStaff) !== JSON.stringify(store.staff)) {
+        if (Array.isArray(updatedStaff) && JSON.stringify(updatedStaff) !== JSON.stringify(store.staff)) {
             console.info("Found new staff! Overwriting...");
-            localStorage.setItem("staffdata", compressData(updatedStaff));
+            safeCacheSet("staffdata", updatedStaff);
         }
         // Update leaderboard if it's different than what's stored locally
-        const updatedLeaderboard = await fetchLeaderboard(updatedList);
-        if (JSON.stringify(updatedLeaderboard) !== JSON.stringify(store.leaderboard)) {
+        const updatedLeaderboard = Array.isArray(updatedList) ? await fetchLeaderboard(updatedList) : null;
+        if (Array.isArray(updatedLeaderboard) && JSON.stringify(updatedLeaderboard) !== JSON.stringify(store.leaderboard)) {
             console.info("Found new data in leaderboard! Overwriting...");
-            localStorage.setItem("listdata", compressData(updatedList));
-            localStorage.setItem("leaderboarddata", compressData(updatedLeaderboard));
+            safeCacheSet("listdata", updatedList);
+            safeCacheSet("leaderboarddata", updatedLeaderboard);
         }
         // Update packs if it's different than what's stored locally
-        const updatedPacks = await fetchPacks(updatedList);
-        if (JSON.stringify(updatedPacks) !== JSON.stringify(store.packs)) {
+        const updatedPacks = Array.isArray(updatedList) ? await fetchPacks(updatedList) : null;
+        if (Array.isArray(updatedPacks) && JSON.stringify(updatedPacks) !== JSON.stringify(store.packs)) {
             console.info("Found new data in packs! Overwriting...");
-            localStorage.setItem("listdata", compressData(updatedList));
-            localStorage.setItem("packsdata", compressData(updatedPacks));
+            safeCacheSet("listdata", updatedList);
+            safeCacheSet("packsdata", updatedPacks);
         }
 
-        store.list = updatedList;
-        store.staff = updatedStaff;
-        store.leaderboard = updatedLeaderboard;
-        store.packs = updatedPacks;
-        store.errors = updatedLeaderboard[1]; // Levels with errors are stored here
+        store.list = Array.isArray(updatedList) ? updatedList : store.list;
+        store.staff = Array.isArray(updatedStaff) ? updatedStaff : store.staff;
+        store.leaderboard = Array.isArray(updatedLeaderboard) ? updatedLeaderboard : store.leaderboard;
+        store.packs = Array.isArray(updatedPacks) ? updatedPacks : store.packs;
+        store.errors = Array.isArray(updatedLeaderboard) ? updatedLeaderboard[1] : [];
         console.info("Up to date!");
     },
     watch: {
