@@ -1,18 +1,26 @@
 {
-    "id": "144446934",
-    "name": "Welcome to TCL",
-    "author": "Mxsonngeo",
-    "creators": ["Mxsonngeo"],
-    "verifier": "[TTG] hpoison3",
-    "verification": "https://youtu.be/X5HPdfzJzYQ",
-    "percentToQualify": 67,
-    "password": "Free to Copy",
-    "records": [
-        {
-            "user": "DrChopper",
-            "link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
-            "percent": 100,
-            "hz": 240
-      }
-    ]
+	"id": "144446934",
+	"name": "Welcome to TCL",
+	"author": "Mxsonngeo",
+	"creators": [
+		"Mxsonngeo"
+	],
+	"verifier": "[TTG] hpoison3",
+	"verification": "https://youtu.be/X5HPdfzJzYQ",
+	"percentToQualify": 67,
+	"password": "Free to Copy",
+	"records": [
+		{
+			"user": "DrChopper",
+			"link": "https://www.youtube.com/watch?v=akLkB6Fqd9A",
+			"percent": 100,
+			"hz": 240
+		},
+		{
+			"user": "[TTG] NotZockz",
+			"link": "https://www.youtube.com/watch?v=6jIfjAB3X4w",
+			"percent": 79,
+			"hz": 240
+		}
+	]
 }
