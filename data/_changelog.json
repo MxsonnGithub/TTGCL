@@ -16,5 +16,14 @@
 		"from_rank": null,
 		"above": "showingproofhehe",
 		"below": null
+	},
+	{
+		"date": 1789253921,
+		"action": "lowered",
+		"name": "jother",
+		"to_rank": 10,
+		"from_rank": 9,
+		"above": "hppwood",
+		"below": "jother"
 	}
 ]
