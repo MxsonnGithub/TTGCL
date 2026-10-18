@@ -1,12 +1,20 @@
 {
-    "id": "138946043",
-    "name": "zockz cant fix you",
-    "author": "drchopperrr81",
-    "creators": ["drchopperrr81"],
-    "verifier": "Drchopper",
-    "verification": "https://www.youtube.com/watch?v=s7UaKBkqO58",
-    "percentToQualify": 67,
-    "password": "Free to Copy",
-    "records": [
-    ]
+	"id": "138946043",
+	"name": "zockz cant fix you",
+	"author": "drchopperrr81",
+	"creators": [
+		"drchopperrr81"
+	],
+	"verifier": "Drchopper",
+	"verification": "https://www.youtube.com/watch?v=s7UaKBkqO58",
+	"percentToQualify": 67,
+	"password": "Free to Copy",
+	"records": [
+		{
+			"user": "[TTG] hpoison3",
+			"link": "https://youtu.be/NaEPl0psMgE",
+			"percent": 100,
+			"hz": 480
+		}
+	]
 }
