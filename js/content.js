@@ -581,7 +581,7 @@ export async function fetchStaff() {
         // add link to editor if there isn't one
         for (const editor of staff) {
             if (!editor.link)
-                editor.link = "https://laylist.pages.dev/#/leaderboard/user/" +
+                editor.link = "https://ttgcl.mxsonn.workers.dev/#/leaderboard/user/" +
                     editor.name.toLowerCase().replaceAll(" ", "_");
         }
         return staff;

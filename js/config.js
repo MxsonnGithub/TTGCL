@@ -128,6 +128,12 @@ export function score(rank, difficulty, percent, minPercent, list) {
         let expLength = fetchTierMinimum(list, diffDivider); // Gets the number of levels
         // from the tier above diffDivider to the #1 ranked level.
         if (!Number.isFinite(expLength) || expLength < 1) {
+            expLength = list.reduce((highestRank, entry) => {
+                const rank = entry?.[1];
+                return Number.isFinite(rank) && rank > highestRank ? rank : highestRank;
+            }, 0);
+        }
+        if (!Number.isFinite(expLength) || expLength < 1) {
             return 0;
         }
         
