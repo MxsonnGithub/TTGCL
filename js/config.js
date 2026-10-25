@@ -28,7 +28,7 @@ export const scale = 1; // Amount of decimals the site will globally round to an
 // Score function (levels and records):
 // -------------------------------------
 export function score(rank, difficulty, percent, minPercent, list) {
-    if (!Number.isFinite(rank) || !Number.isFinite(difficulty) || !Number.isFinite(percent)) {
+    if (!Number.isFinite(rank) || rank < 1 || !Number.isFinite(difficulty) || !Number.isFinite(percent) || !Array.isArray(list)) {
         return 0;
     }
 
@@ -127,12 +127,18 @@ export function score(rank, difficulty, percent, minPercent, list) {
         
         let expLength = fetchTierMinimum(list, diffDivider); // Gets the number of levels
         // from the tier above diffDivider to the #1 ranked level.
+        if (!Number.isFinite(expLength) || expLength < 1) {
+            return 0;
+        }
         
         const scaleFactor = Math.log(minExpScore / maxExpScore); // Gets the scale factor
         // for the exponential function.
         
-        // Calculates the exponential score
-        let expScore = maxExpScore * Math.exp(scaleFactor * Math.pow((rank - 1) / (expLength - 1), curveBuff));
+        // Calculates the exponential score. A denominator of zero occurs for a single
+        // extreme-tier level or an incomplete tier, so use a stable normalized position.
+        const expDenominator = Math.max(expLength - 1, 1);
+        const rankPosition = Math.max(0, Math.min((rank - 1) / expDenominator, 1));
+        let expScore = maxExpScore * Math.exp(scaleFactor * Math.pow(rankPosition, curveBuff));
         
         // Rounds up the value of expScore to minExpScore if it's below the value of
         // minExpScore, and rounds down the value of expScore to maxExpScore if it's above
@@ -152,9 +158,12 @@ export function score(rank, difficulty, percent, minPercent, list) {
 
     // Rounds the value of score to the nearest nth decimal, where n is the value of scale,
     // and makes it 0 if the score is negative.
-    score = Math.max(round(score), 0);
+    score = round(score);
+    if (!Number.isFinite(score)) {
+        return 0;
+    }
 
-    return score;
+    return Math.max(score, 0);
 }
 
 // ------------------------
