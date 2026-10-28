@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=1024" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="TTG Challenge list" />
         <meta property="og:description" content="A list of community made levels." />
         <meta property="og:image" content="/assets/laylist.png" />
@@ -36,9 +36,6 @@
     </head>
     <body id="app">
         <header :class="{ dark: store.dark }">
-            <div class="logo">
-                <h2>TTG Challenge list</h2>
-            </div>
             <nav class="nav">
                 <router-link class="nav__tab" to="/">
                     <span class="type-label-lg">List</span>
@@ -55,22 +52,25 @@
                 <router-link class="nav__tab" to="/grind">
                     <span class="type-label-lg">Grind</span>
                 </router-link>
-                <div class="nav__actions" v-if="store.list && store.loaded">
-                     <div class="color-picker-wrapper nav__icon">
-                        <img :src="store.dark ? '/assets/palette-dark.svg' : '/assets/palette.svg'"/>
-                        <input type="color" class="nav__icon" v-model="selectedColor" v-if="store">
-                    </div>
-                    <a class="nav__icon" href="https://discord.gg/d5gXN9QYjY" target="_blank">
-                        <img :src="!store.dark ? '/assets/discord-dark.svg' : '/assets/discord.svg'" />
-                    </a>
-                    <a
-                        class="nav__cta type-label-lg"
-                        href="https://forms.gle/9GB4amAcMokUTh2b7"
-                        target="_blank"
-                        >Submit Record</a
-                    >
-                </div>
             </nav>
+            <div class="logo">
+                <h2>TTG Challenge list</h2>
+            </div>
+            <div class="nav__actions" v-if="store.list && store.loaded">
+                <div class="color-picker-wrapper nav__icon">
+                    <img :src="store.dark ? '/assets/palette-dark.svg' : '/assets/palette.svg'"/>
+                    <input type="color" class="nav__icon" v-model="selectedColor" v-if="store">
+                </div>
+                <a class="nav__icon" href="https://discord.gg/d5gXN9QYjY" target="_blank">
+                    <img :src="!store.dark ? '/assets/discord-dark.svg' : '/assets/discord.svg'" />
+                </a>
+                <a
+                    class="nav__cta type-label-lg"
+                    href="https://forms.gle/9GB4amAcMokUTh2b7"
+                    target="_blank"
+                    >Submit Record</a
+                >
+            </div>
         </header>
         <main :class="{ dark: store.dark }" v-if="!store.list || !store.loaded">
             <p class="spinner">Loading...</p>

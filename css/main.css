@@ -87,29 +87,62 @@ main {
 }
 
 header {
-    display: flex;
-    padding-inline: calc(25vw - 10rem);
-    height: 4rem;
-    background-color: var(--color-primary);
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10;
+    width: calc(100% - 2rem);
+    max-width: 1600px;
+    min-height: 3rem;
+    margin: 0.5rem auto;
+    padding: 0 0.75rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-areas: "nav brand actions";
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0.75rem;
+    background-color: color-mix(in srgb, var(--color-primary) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     color: var(--color-on-primary);
-    justify-content: center;
-}
-@media screen and (min-width: 1366px) {
-    header {
-        display: grid;
-        padding-inline: 0;
-    }
 }
 header .logo {
-    justify-self: end;
+    grid-area: brand;
+    justify-self: center;
     align-self: center;
     display: flex;
     align-items: flex-end;
-    gap: 1rem;
     white-space: nowrap;
 }
-header .nav {
-    flex: 1;
+header .logo h2 {
+    font-size: 1.125rem;
+}
+
+@media screen and (max-width: 900px) {
+    header {
+        gap: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    header {
+        grid-template-areas:
+            ". brand actions"
+            "nav nav nav";
+        row-gap: 0.25rem;
+        padding-block: 0.4rem;
+    }
+    header .logo h2 {
+        font-size: 0.95rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        width: calc(100% - 1rem);
+        padding-inline: 0.5rem;
+    }
 }
 
 main {
