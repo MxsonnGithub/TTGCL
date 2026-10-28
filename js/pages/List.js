@@ -39,12 +39,12 @@ export default {
                 <p style="font-size: 9.5px; opacity: 30%;" class="director" @click="descending = !descending">{{ descending === true ? 'Descending' : 'Ascending' }}</p>
             </div>
             <table class="list" v-if="filteredLevels.length > 0">
-                <tr v-for="({ item: [err, rank, level], index }, i) in filteredLevels" :key="index">
+                <tr v-for="({ item: [err, rank, level], index, isLegacyDivider }, i) in filteredLevels" :key="isLegacyDivider ? 'legacy-divider' : index">
                     <td class="rank">
                         <p v-if="rank === null" class="type-label-lg" style="width:2.7rem">&mdash;</p>
                         <p v-else class="type-label-lg" style="width:2.7rem">#{{ rank }}</p>
                     </td>
-                    <td class="level" :class="{ 'active': selected == index, 'error': err !== null }" :ref="selected == index ? 'selected' : undefined">
+                    <td class="level" :class="{ 'active': selected == index, 'error': err !== null, 'legacy-divider': isLegacyDivider }" :ref="selected == index ? 'selected' : undefined">
                         <button @click="selected = index">
                             <span class="type-label-lg">{{ level?.name || 'Error (' + err + '.json)' }}</span>
                         </button>
@@ -128,6 +128,9 @@ export default {
 
     computed: {
         level() {
+            if (this.selected === -1) {
+                return { id: 0, name: 'Legacy', difficulty: -1, records: [] };
+            }
             return this.list && this.list[this.selected] && this.list[this.selected][2];
         },
         filteredLevels() {
@@ -178,7 +181,22 @@ export default {
                 list = list.reverse()
             }
 
-            return list
+            const primaryLevels = list.filter(({ item: [, rank, level] }) =>
+                rank === null || rank < 20 || level?.id === 0
+            );
+            const legacyLevels = list.filter(({ item: [, rank, level] }) =>
+                rank !== null && rank >= 20 && level?.id !== 0
+            );
+
+            if (legacyLevels.length > 0) {
+                primaryLevels.push({
+                    item: [null, null, { id: 0, name: 'Legacy', difficulty: -1, records: [] }],
+                    index: -1,
+                    isLegacyDivider: true,
+                });
+            }
+
+            return [...primaryLevels, ...legacyLevels]
         },
     },
 

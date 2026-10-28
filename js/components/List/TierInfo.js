@@ -19,6 +19,11 @@ export default {
     template: `
         <div class="tier" style="height: 100%; justify-content: center; align-items: center;">
             <h1>{{ level.name }}</h1>
+            <template v-if="level.name === 'Legacy'">
+                <h2 style="padding-top:1rem"># of levels in section: {{ fetchLegacyLength(list) }}</h2>
+                <p style="padding-top:1.5rem">Ranks from #20 onward are considered legacy.</p>
+            </template>
+            <template v-else>
             <h2 style="padding-top:1rem"># of levels in tier: {{ fetchTierLength(list, level.difficulty) }}</h2>
             <h2 style="padding-bottom:1rem">Points in tier: {{ localize(fetchTotalScore(list, level.difficulty)) }}</h2>
             <tr style="justify-content: center; align-items: center;">
@@ -30,6 +35,7 @@ export default {
             <p style="padding-top:1.5rem">The levels {{ descending ? 'below' : 'above' }} are {{ ["beginner", "easy", "medium", "hard", "insane", "mythical", "extreme", "supreme", "ethereal", "legendary", "silent", "impossible", "unfathomable"][level.difficulty] }} layouts.</p>
 
             <h3 v-if="level.difficulty > 5" style="padding-top:1.5rem"><a class="director" href="https://docs.google.com/spreadsheets/d/1tgwlKJpFMC2lEK8XjFPyKGP1-JJ0z2t6GsvCyojEeCw/">sn0w's extreme spreadsheet</a></h3>
+            </template>
         </div>
     `,
     methods: {
@@ -38,6 +44,11 @@ export default {
         fetchTotalScore,
         fetchHighestEnjoyment,
         fetchLowestEnjoyment,
+        fetchLegacyLength(list) {
+            return list.filter(([error, rank, level]) =>
+                !error && rank !== null && rank >= 20 && level?.id !== 0
+            ).length;
+        },
     }
 
 }
