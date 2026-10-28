@@ -9,6 +9,8 @@
     --color-on-primary: white;
     --color-error: #de0000;
     --color-on-error: white;
+    --motion-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-duration: 320ms;
 }
 
 html,
@@ -16,10 +18,60 @@ body {
     height: 100%;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     display: flex;
     flex-direction: column;
     margin: 0;
+}
+
+:where(body, body *) {
+    transition:
+        color var(--motion-duration) var(--motion-smooth),
+        background-color var(--motion-duration) var(--motion-smooth),
+        border-color var(--motion-duration) var(--motion-smooth),
+        box-shadow var(--motion-duration) var(--motion-smooth);
+}
+
+:where(a, button, input, select, textarea, [role="button"]) {
+    transition:
+        color var(--motion-duration) var(--motion-smooth),
+        background-color var(--motion-duration) var(--motion-smooth),
+        border-color var(--motion-duration) var(--motion-smooth),
+        box-shadow var(--motion-duration) var(--motion-smooth),
+        opacity var(--motion-duration) var(--motion-smooth),
+        transform var(--motion-duration) var(--motion-smooth);
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition:
+        opacity 280ms var(--motion-smooth),
+        transform 380ms var(--motion-smooth);
+}
+
+.page-enter-from {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+.page-leave-to {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 header,
@@ -109,7 +161,10 @@ input[type="checkbox"] {
     margin-bottom: 1rem;
     margin-left: 1rem;
     background-color: var(--color-background-hover);
-    transition: all, border 120ms ease-out;
+    transition:
+        background-color var(--motion-duration) var(--motion-smooth),
+        border-color var(--motion-duration) var(--motion-smooth),
+        box-shadow var(--motion-duration) var(--motion-smooth);
     position: relative;
 }
 
@@ -166,7 +221,7 @@ input[type="checkbox"] {
     cursor: pointer;
     fill: var(--color-on-background-hover);
     opacity: 0.4;
-    transition: opacity 120ms ease-out;
+    transition: opacity var(--motion-duration) var(--motion-smooth);
 }
 
 .copy:hover {
@@ -179,7 +234,7 @@ input[type="checkbox"] {
     height: 2rem;
     cursor: pointer;
     opacity: 1;
-    transition: opacity 120ms ease-out;
+    transition: opacity var(--motion-duration) var(--motion-smooth);
 }
 
 .right-text > p:not(:last-child)  {

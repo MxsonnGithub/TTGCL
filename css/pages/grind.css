@@ -82,7 +82,7 @@ main.grind-page {
     overflow: hidden;
     width: 100%;
     background-color: var(--color-background-hover);
-    transition: background-color 0.3s ease-out;
+    transition: background-color var(--motion-duration) var(--motion-smooth);
 }
 .grind-level-container .level .video img {
     width: 100%;

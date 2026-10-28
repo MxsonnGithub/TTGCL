@@ -1,6 +1,6 @@
 .pack-rank {
     padding-left: 2.5rem;
-    transition: background-color 75ms ease-out;
+    transition: background-color var(--motion-duration) var(--motion-smooth);
 }
 
 .pack-name {
