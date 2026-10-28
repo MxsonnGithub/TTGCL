@@ -10,18 +10,23 @@
     display: none;
 }
 .nav .nav__tab {
-    padding-top: 2px;
-    border-bottom: 4px solid transparent;
+    padding-block: 0.35rem;
+    border-bottom: 2px solid transparent;
     display: flex;
     align-items: center;
+    color: color-mix(in srgb, var(--color-on-primary) 65%, transparent);
+    font-size: 1.05rem;
     white-space: nowrap;
-    transition: border-color var(--motion-duration) var(--motion-smooth);
+    transition:
+        color var(--motion-duration) var(--motion-smooth),
+        border-color var(--motion-duration) var(--motion-smooth);
 }
 .nav .nav__tab.router-link-active {
-    border-color: var(--color-on-primary);
+    border-color: transparent;
+    color: var(--color-on-primary);
 }
 .nav .nav__tab:hover {
-    border-color: var(--color-on-primary);
+    color: var(--color-on-primary);
 }
 .nav__actions {
     grid-area: actions;
@@ -139,7 +144,7 @@
 
 @media screen and (max-width: 480px) {
     .nav .nav__tab span {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
     .nav__actions .nav__icon {
         height: 2rem;
