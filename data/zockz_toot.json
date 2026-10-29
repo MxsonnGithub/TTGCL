@@ -1,12 +1,21 @@
 {
 	"id": 150846088,
 	"name": "zockz toot",
-	"creators": ["[TTG] notzockz"],
+	"creators": [
+		"[TTG] notzockz"
+	],
 	"verifier": "[TTG] notzockz",
 	"verification": "https://youtu.be/NBdEl1DQKcs",
 	"percentToQualify": 100,
 	"password": "Free to copy",
 	"difficulty": 3,
 	"song": "song",
-	"records": []
+	"records": [
+		{
+			"user": "[TTG] hpoison3",
+			"link": "https://youtu.be/hIfuUtXxRQA",
+			"percent": 100,
+			"hz": 240
+		}
+	]
 }
