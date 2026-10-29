@@ -1,12 +1,21 @@
 {
 	"id": 150842756,
 	"name": "GRAVE",
-	"creators": ["[TTG] mxsonngeo"],
+	"creators": [
+		"[TTG] mxsonngeo"
+	],
 	"verifier": "[TTG] mxsonngeo",
 	"verification": "https://youtu.be/xereYDXAFt4",
 	"percentToQualify": 100,
 	"password": "Free to copy",
 	"difficulty": 4,
 	"song": "Stalemate x banana trumpet x mxsonn remix x I miss the poo x espresso - kzx",
-	"records": []
+	"records": [
+		{
+			"user": "[TTG] hpoison3",
+			"link": "https://youtu.be/BWg7Da_YwOI",
+			"percent": 100,
+			"hz": 240
+		}
+	]
 }
